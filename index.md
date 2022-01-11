@@ -1,23 +1,34 @@
 ## Welcome to Brilian Page!
 ---
-Here I want to share some experiences in the field of deep learning.
+<p><b>Here</b>, I want to share some experiences in the field of deep learning.</p>
 
-My current interests are:
+### My contents are as follow:
 
-```
-1. Tensor-RT
-2. ONNX optimization
-3. Neural pruning
-4. Edge computing Optimization and Inference.
-```
+<style>
+div {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow: hidden;
+  alignment: justify;
+}
+li {
+  float: left;
+  display: block;
+  padding: 8px;
+  background-color: #DDDDDD;
+}
+</style>
 
-My contents are as follow: 
-```
-Topic 1. TBD 
-Topic 2. TBD 
-Topic 3. TBD 
-Topic 4. TBD
-```
+<div>
+  <li><a href="tensorrt/index.md"><h4>Tensor-RT</h4></a></li>
+  <li><a href="onnxopt/index.md"><h4>ONNX optimization</h4></a></h4></li>
+  <li><a href="netprune/index.md"><h4>Network Pruning</h4></a></li>
+  <li><a href="edgeopt/index.md"><h4>Edge computing Optimization</h4></a></li>
+</div>
 
+
+---
 ### Support or Contact
-I will be more than happy to have some discussion with you about deep learning, grab a coffee, and chat directly or through my email.
+I will be more than happy to have some discussion with you about deep learning, grab a coffee, and chat directly or through email <briliantnugraha@gmail.com>.
