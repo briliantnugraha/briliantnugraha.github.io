@@ -22,10 +22,10 @@ li {
 </style>
 
 <div>
-  <li><a href="tensorrt/index.md"><h4>Tensor-RT</h4></a></li>
-  <li><a href="onnxopt/index.md"><h4>ONNX optimization</h4></a></li>
-  <li><a href="netprune/index.md"><h4>Network Pruning</h4></a></li>
-  <li><a href="edgeopt/index.md"><h4>Edge computing Optimization</h4></a></li>
+  <li><a href="tensorrt/"><h4>Tensor-RT</h4></a></li>
+  <li><a href="onnxopt/"><h4>ONNX optimization</h4></a></li>
+  <li><a href="netprune/"><h4>Network Pruning</h4></a></li>
+  <li><a href="edgeopt/"><h4>Edge computing Optimization</h4></a></li>
 </div>
 
 
