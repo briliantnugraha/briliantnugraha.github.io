@@ -1,3 +1,4 @@
+ <link href="style.css" rel="stylesheet"></link>
 ## Welcome to Brilian Page!
 ---
 <p><b>Here</b>, I want to share some experiences in the field of deep learning.</p>
