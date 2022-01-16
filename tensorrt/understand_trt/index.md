@@ -28,7 +28,7 @@ January 16th, 2022
 
 In this review, we are gonna try to review one of the fastest inference engine available today, which is Tensor-RT!
 
-The code/coding material are available at [here](https://github.com/briliantnugraha/briliantnugraha.github.io/tensorrt/understand_trt/tensorrt_explanation). For tensor-rt model, you can convert it from this [YOLOX-m's ONNX model here](https://tinyurl.com/yoloxmonnx).
+The code/coding material are available at [here](https://github.com/briliantnugraha/briliantnugraha.github.io/tree/main/tensorrt/understand_trt/tensorrt_explanation). For tensor-rt model, you can convert it from this [YOLOX-m's ONNX model here](https://tinyurl.com/yoloxmonnx).
 
 Nowadays, a lot of frameworks/engines for deep learning inferencing are available open sources. To my knowledge, the top 5 inference engine that are very popular are:
 - ONNXRuntime.
