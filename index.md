@@ -1,4 +1,4 @@
- ## Welcome to Brilian Page!
+## Welcome to Brilian Page!
 ---
 <p><b>Here</b>, I want to share some experiences in the field of deep learning.</p>
 
@@ -28,6 +28,12 @@ li {
   <li><a href="edgeopt/"><h4>Edge computing Optimization</h4></a></li>
 </div>
 
+---
+The purpose of this blog:
+```
+العِلْمُ بِلَا عَمَلٍ كَالشَّجَرِ بِلَا ثَمَرٍ
+The unshared knowledge is like a tree that doesn't bear any fruit.
+```
 
 ---
 ### Support or Contact
