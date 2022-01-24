@@ -38,7 +38,7 @@ class TRTEngine:
         self.runtime = trt.Runtime(self.logger)
         
         #initialize the model engine
-        self.engine = self.load_engine(self.runtime, self.engine_path)
+        self.engine = TRTEngine.load_engine(self.runtime, self.engine_path)
         self.max_batch_size = max_batch_size
         self.inputs, self.outputs, self.bindings, self.stream = self.allocate_buffers()
         # intermediary variable that will pass/send back our I/O, ref: https://docs.nvidia.com/deeplearning/tensorrt/developer-guide/index.html#perform_inference_python
@@ -66,11 +66,12 @@ class TRTEngine:
         # we could use more than one stream
         stream = cuda.Stream()
         
+        
         for binding in self.engine:
             size = trt.volume(self.engine.get_binding_shape(binding)) * self.max_batch_size
             # https://stackoverflow.com/questions/56472282/an-illegal-memory-access-was-encountered-using-pycuda-and-tensorrt
-            # self.dtype = trt.nptype(self.engine.get_binding_dtype(binding))
-            self.dtype = trt.float16
+            self.dtype = trt.nptype(self.engine.get_binding_dtype(binding))
+            # self.dtype = trt.float16
             print('binding:', binding, self.dtype, self.engine.get_binding_dtype(binding), self.engine.get_binding_shape(binding), size)
             
             # ref: https://forums.developer.nvidia.com/t/question-about-page-locked-memory/9032
@@ -122,7 +123,7 @@ if __name__ == "__main__":
  
     batch_size = 1
     dtype=np.float16
-    trt_engine_path = os.path.join("","yolox_m16.trt")
+    trt_engine_path = os.path.join(r"F:\gitdata\test_trt","yolox_m16.trt")
     model = TRTEngine(trt_engine_path, dtype=dtype)
     shape = model.engine.get_binding_shape(0)
 

@@ -1,6 +1,3 @@
-## TENSOR-RT Simplified Introduction
----
-
 <style>
   .center {
     display: block;
@@ -163,5 +160,5 @@ And also, based on this experiment, the runtime phase could be summarized as:
 
 ## That's IT!
 
-There you go! Hope this explanation helps. If there is any question or mistake with the content, please don't hesitate and le me know, see you in the next blog and stay safe!
+There you go! Hope this explanation helps. If there is any question or mistake with the content, please don't hesitate to let me know, see you in the next blog and stay safe!
 
