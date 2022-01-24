@@ -20,6 +20,11 @@
 ## TENSOR-RT Object Detection Inference with YOLOX 
 ---
 January 24th, 2022
+
+The whole code is available at <a href="./tensorrt_expl_complete/">here</a>.
+
+---
+
 <!-- <p align="center"> -->
 <p class="center">
     After completing the <a href="../understand_trt">Tensor-RT's simplified introduction</a>, you might be wondering, is that all there is to it for the object detection with YOLOX model?
