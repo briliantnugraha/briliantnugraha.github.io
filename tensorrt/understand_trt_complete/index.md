@@ -66,39 +66,13 @@ result_out = ylrunner.filter_with_nms(result_pp[0], nms_threshold=cfg.nms_thresh
 ---
 ## Snapshot of the Inference Output
 In here, we also want to know how the whole processes fare. To do that, we add one function *.vis* that will essentially draw the detection output back to the image input. Here are some example using royalty-free images:
-<table>
-  <tr>
-    <th>
-      <b>Input Image</b>
-    </td>
-    <th>
-      <b>Tensor-RT output (FP32)</b>
-    </th>
-  </tr>
-    <td>
-      <img src="tensorrt_expl_complete/test_image1.jpg" width="400px" height="250px">
-    </td>
-    <td>
-      <img src="tensorrt_expl_complete/test_image1_out.jpg" width="400px" height="250px">
-    </td>
-  </tr>
-  </tr>
-    <td>
-      <img src="tensorrt_expl_complete/test_image2.jpg" width="400px" height="250px">
-    </td>
-    <td>
-      <img src="tensorrt_expl_complete/test_image2_out.jpg" width="400px" height="250px">
-    </td>
-  </tr>
-  </tr>
-    <td>
-      <img src="tensorrt_expl_complete/test_image3.jpg" width="400px" height="250px">
-    </td>
-    <td>
-      <img src="tensorrt_expl_complete/test_image4_out.jpg" width="400px" height="250px">
-    </td>
-  </tr>
-</table>   
+
+
+| Input Image      | Tensor-RT Output (FP32) |
+| :---        |    :----:   |          ---: |
+| <img src="tensorrt_expl_complete/test_image1.jpg" width="400px" height="250px">      | <img src="tensorrt_expl_complete/test_image1_out.jpg" width="400px" height="250px">       | 
+|  <img src="tensorrt_expl_complete/test_image2.jpg" width="400px" height="250px">   |  <img src="tensorrt_expl_complete/test_image2_out.jpg" width="400px" height="250px"> | 
+|  <img src="tensorrt_expl_complete/test_image3.jpg" width="400px" height="250px">   |  <img src="tensorrt_expl_complete/test_image3_out.jpg" width="400px" height="250px"> | 
 
 ---
 In here, we also try to compare the output using Tensor-RT FP32, Tensor-RT FP116, ONNX FP32, and ONNX FP16. The results are as follow (best to open it in the new tab): 
