@@ -8,7 +8,7 @@
 
   td, th {
   border: 1px solid #dddddd;
-  padding: 8px;
+  /* padding: 8px; */
 }
 </style>
 
@@ -166,18 +166,23 @@ In the last part, I also try to compare the speed using Tensor-RT FP32, Tensor-R
 
 Based on the inference log, we could see that the inference speed of ONNX-FP16 is faster than the FP32 counterpart. However, interestingly, the NMS speed of ONNX-FP16 is slower than FP32 (total: 34ms vs 30ms). On the other hand, we don't see the slowdown on the Tensor-RT counterparts (both FP32 and FP16's nms perform similar to ONNX-FP32's NMS). We could see that the speed of Tensor-RT+FP16 is faster by almost 10ms than the FP32 one (~25ms vs ~17ms).
 
+---
+
 ## Size of Model
+
 Based on the size of the model, ONNXRuntime is slightly smaller compared to Tensor-RT counterparts by around ~5MB. The snapshot of the model size is as the following:
 <img src="tensorrt_expl_complete/log_size_ort_trt.PNG" width="100%" height="100%">
 
----
 ## Summary
+
 In summary, the rank based on speed is as follow:
 1. **Tensor-RT FP16 with ~17ms inference speed**.
 2. Tensor-RT FP32 with ~25ms inference speed.
 3. **ONNXRuntime FP32 with ~30ms inference speed**.
 4. ONNXRuntime FP16 with ~34ms inference speed.
+
 ---
+
 The rank based on model size is as follow:
 1. **ONNXRuntime FP16 with ~48.3MB of model size**.
 2. Tensor-RT FP16 with ~53.4MB of model size.
@@ -185,5 +190,6 @@ The rank based on model size is as follow:
 4. Tensor-RT FP32 with ~101.2MB of model size.
 
 ## There you go!
+
 Hope this explanation helps. If there is any question or mistake with the content, please don't hesitate to let me know, see you in the next blog and stay safe!
 
