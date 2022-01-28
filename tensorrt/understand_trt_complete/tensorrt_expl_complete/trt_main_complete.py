@@ -14,6 +14,7 @@ import time
 import numpy as np
 import cv2
 import argparse
+import onnxruntime as ort
 # import PIL
 
 COCO_CLASSES = "person...bicycle...car...motorcycle...airplane...bus...train...truck...boat...traffic light...fire hydrant...stop sign...parking meter...bench...bird...cat...dog...horse...sheep...cow...elephant...bear...zebra...giraffe...backpack...umbrella...handbag...tie...suitcase...frisbee...skis...snowboard...sports ball...kite...baseball bat...baseball glove...skateboard...surfboard...tennis racket...bottle...wine glass...cup...fork...knife...spoon...bowl...banana...apple...sandwich...orange...broccoli...carrot...hot dog...pizza...donut...cake...chair...couch...potted plant...bed...dining table...toilet...tv...laptop...mouse...remote...keyboard...cell phone...microwave...oven...toaster...sink...refrigerator...book...clock...vase...scissors...teddy bear...hair drier...toothbrush"
@@ -190,7 +191,7 @@ def parse_argument():
                         help='Number of batch for inference')
     parser.add_argument('--score_threshold', nargs="?", type=float, default=0.3,
                         help='Find object above these threshold')
-    parser.add_argument('--model_path', nargs="?", type=str, default=os.path.join(r"F:\gitdata\test_trt","yolox_m.trt"),
+    parser.add_argument('--model_path', nargs="?", type=str, default=os.path.join(r"F:\gitdata\test_trt","yolox_m.onnx"),
                         help='Define model path of your model+model filename')
     parser.add_argument('--img_test_path', nargs="?", type=str, default='test_image4.jpg',
                         help='Define img test path + imgname')
@@ -206,6 +207,19 @@ def parse_argument():
     args.img_test_path = args.img_test_path.split('.')
     print('Used config: ', args)
     return args
+
+def load_model_onnxruntime(onnxpath, 
+                           EP_list = ['CUDAExecutionProvider', 'CPUExecutionProvider'],
+                           sess_options_enable=True ):
+    
+    if sess_options_enable:
+        sess_options = ort.SessionOptions()
+        sess_options.execution_mode = ort.ExecutionMode.ORT_SEQUENTIAL
+        sess_options.graph_optimization_level = ort.GraphOptimizationLevel.ORT_ENABLE_ALL
+    model = ort.InferenceSession(onnxpath, sess_options if sess_options_enable else None, providers=EP_list)
+    shape = model.get_inputs()[0].shape
+    inpname = model.get_inputs()[0].name
+    return model, shape, inpname
 
 if __name__ == "__main__":
     cfg = parse_argument()
@@ -235,18 +249,15 @@ if __name__ == "__main__":
         model = TRTEngine(cfg.model_path, dtype=dtype)
         shape = model.engine.get_binding_shape(0)
     else:        
-        import onnxruntime as ort
-        EP_list = ['CUDAExecutionProvider', 'CPUExecutionProvider']
-        sess_options = ort.SessionOptions()
-        # Set graph optimization level to ORT_ENABLE_EXTENDED to enable bert optimization.
-        sess_options.graph_optimization_level = ort.GraphOptimizationLevel.ORT_ENABLE_ALL
-        # Use OpenMP optimizations. Only useful for CPU, has little impact for GPUs.
-        sess_options.intra_op_num_threads = 2
-        sess_options.execution_mode = ort.ExecutionMode.ORT_SEQUENTIAL
-        sess_options.graph_optimization_level = ort.GraphOptimizationLevel.ORT_ENABLE_ALL
-        model = ort.InferenceSession(cfg.model_path, sess_options, providers=EP_list)
-        shape = model.get_inputs()[0].shape
-        inpname = model.get_inputs()[0].name
+        # import onnxruntime as ort
+        # EP_list = ['CUDAExecutionProvider', 'CPUExecutionProvider']
+        # sess_options = ort.SessionOptions()
+        # sess_options.execution_mode = ort.ExecutionMode.ORT_SEQUENTIAL
+        # sess_options.graph_optimization_level = ort.GraphOptimizationLevel.ORT_ENABLE_ALL
+        # model = ort.InferenceSession(cfg.model_path, sess_options, providers=EP_list)
+        # shape = model.get_inputs()[0].shape
+        # inpname = model.get_inputs()[0].name
+        model, shape, inpname = load_model_onnxruntime(cfg.model_path, sess_options_enable=False)
     shapetuple = tuple(shape[2:])
     ylrunner = YOLOX_runner()
 
