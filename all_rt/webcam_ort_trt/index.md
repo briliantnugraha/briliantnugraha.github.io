@@ -21,7 +21,7 @@
 ---
 January 29th, 2022
 
-The whole code is available at <a href="http://github.com/briliantnugraha/briliantnugraha.github.io/tree/main/tensorrt/webcam_ort_trt/">here</a>.
+The whole code is available at <a href="http://github.com/briliantnugraha/briliantnugraha.github.io/tree/main/all_rt/webcam_ort_trt/">here</a>.
 
 <p class="center">
     After completing the <a href="../understand_trt_complete">Tensor-RT's Complete Inference</a>, you will probably start itching to do some real stuff, aren't you?
@@ -89,7 +89,7 @@ In summary, the streaming speed using the Webcam Viewer script is as follow:
 For starter, you can use this command to check the available options.
 ``` 
 git clone my github (briliantnugraha.github.io)
-cd ./tensorrt/webcam_ort_trt
+cd ./all_rt/webcam_ort_trt
 python ./codes/onnx_trt_yolox_webcam.py -h
 ```
 

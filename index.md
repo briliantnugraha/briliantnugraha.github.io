@@ -22,10 +22,10 @@ li {
 </style>
 
 <div>
-  <li><a href="tensorrt/"><h4>Tensor-RT</h4></a></li>
-  <li><a href="onnxopt/"><h4>ONNX optimization</h4></a></li>
-  <li><a href="netprune/"><h4>Network Pruning</h4></a></li>
-  <li><a href="edgeopt/"><h4>Edge computing Optimization</h4></a></li>
+  <li><a href="all_rt/"><h4>Runtime Experiments</h4></a></li>
+  <li><a href="opt_rt/"><h4>ONNX optimization</h4></a></li>
+  <li><a href="nn_opt/"><h4>CNN Compression</h4></a></li>
+  <li><a href="hpc_opt/"><h4>High Performance Inference</h4></a></li>
 </div>
 
 ---
