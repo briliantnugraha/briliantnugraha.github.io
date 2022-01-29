@@ -69,6 +69,7 @@ Here are some snapshot between ONNX FP32 vs ONNX FP16 vs Tensor-RT FP32 vs Tenso
 | ONNX FP32      | ONNX FP16 |
 | :----:       |    :----:   |
 | <video autoplay loop muted="muted" plays-inline="true"  width="100%" height="100%"><source src="./demo_videos/demo_ort_fp32.mp4" type="video/mp4"></video>      | <video autoplay loop muted plays-inline="true"  width="100%" height="100%"><source src="./demo_videos/demo_ort_fp16.mp4" type="video/mp4"></video> |  
+| **Tensor-RT FP32**      | **Tensor-RT FP16** |
 |  <video autoplay loop muted plays-inline="true"  width="100%" height="100%"><source src="./demo_videos/demo_trt_fp32.mp4" type="video/mp4"></video>   |  <video autoplay loop muted plays-inline="true"  width="100%" height="100%"><source src="./demo_videos/demo_trt_fp16.mp4" type="video/mp4"></video> | 
 
 As you can see, the models havbe is as the following:
