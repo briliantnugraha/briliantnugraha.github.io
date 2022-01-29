@@ -62,7 +62,7 @@ For the implementation parts. I will separate the process into:
 ---
 ## Result
 
-As I mentioned in <a href="./understand_trt_complete/">my previous post</a>, the winner of this test is ***Tensor-RT FP16*** with ~17ms. In this test, the speed rank is also similar (TRT FP16 > TRT FP32 > ORT FP32 > ORT FP16). The difference is that the speed with TRT-FP16 is slightly slower when I tested it in using the WebcamViewer code.
+As I mentioned in <a href="../understand_trt_complete/">my previous post</a>, the winner of this test is ***Tensor-RT FP16*** with ~17ms. In this test, the speed rank is also similar (TRT FP16 > TRT FP32 > ORT FP32 > ORT FP16). The difference is that the speed with TRT-FP16 is slightly slower when I tested it in using the WebcamViewer code.
 
 Here are some snapshot between ONNX FP32 vs ONNX FP16 vs Tensor-RT FP32 vs Tensor-RT FP16.
 
