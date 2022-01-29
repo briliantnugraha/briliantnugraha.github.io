@@ -21,7 +21,7 @@
 ---
 January 29th, 2022
 
-The whole code is available at <a href="http://github.com/briliantnugraha/briliantnugraha.github.io/tensorrt/webcam_ort_trt/">here</a>.
+The whole code is available at <a href="http://github.com/briliantnugraha/briliantnugraha.github.io/tree/main/tensorrt/webcam_ort_trt/">here</a>.
 
 <p class="center">
     After completing the <a href="../understand_trt_complete">Tensor-RT's Complete Inference</a>, you will probably start itching to do some real stuff, aren't you?
