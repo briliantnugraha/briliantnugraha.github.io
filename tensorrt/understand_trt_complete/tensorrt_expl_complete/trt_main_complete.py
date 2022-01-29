@@ -14,8 +14,7 @@ import time
 import numpy as np
 import cv2
 import argparse
-import onnxruntime as ort
-# import PIL
+from trt_main import TRTEngine
 
 COCO_CLASSES = "person...bicycle...car...motorcycle...airplane...bus...train...truck...boat...traffic light...fire hydrant...stop sign...parking meter...bench...bird...cat...dog...horse...sheep...cow...elephant...bear...zebra...giraffe...backpack...umbrella...handbag...tie...suitcase...frisbee...skis...snowboard...sports ball...kite...baseball bat...baseball glove...skateboard...surfboard...tennis racket...bottle...wine glass...cup...fork...knife...spoon...bowl...banana...apple...sandwich...orange...broccoli...carrot...hot dog...pizza...donut...cake...chair...couch...potted plant...bed...dining table...toilet...tv...laptop...mouse...remote...keyboard...cell phone...microwave...oven...toaster...sink...refrigerator...book...clock...vase...scissors...teddy bear...hair drier...toothbrush"
 COCO_CLASSES = COCO_CLASSES.split('...')
@@ -105,7 +104,7 @@ class YOLOX_runner:
     
     # ref: https://github.com/Megvii-BaseDetection/YOLOX/blob/main/demo/ONNXRuntime/onnx_inference.py#L75-L84
     @staticmethod
-    def filter_with_nms(predictions, nms_threshold=0.45, score_threshold=0.1):
+    def filter_with_nms(predictions, nms_threshold=0.45, score_threshold=0.1, ratio=None):
         boxes = predictions[:, :4]
         scores = predictions[:, 4:5] * predictions[:, 5:]
     
@@ -165,7 +164,7 @@ class YOLOX_runner:
             y1 = int(box[3])
     
             color = (_COLORS[cls_id] * 255).astype(np.uint8).tolist()
-            text = '{}:{:.1f}%'.format(class_names[cls_id], score * 100)
+            text = '{}:{}%'.format(class_names[cls_id], int(score * 100))
             txt_color = (0, 0, 0) if np.mean(_COLORS[cls_id]) > 0.5 else (255, 255, 255)
             font = cv2.FONT_HERSHEY_SIMPLEX
     
@@ -180,7 +179,7 @@ class YOLOX_runner:
                 txt_bk_color,
                 -1
             )
-            cv2.putText(img, text, (x0, y0 + txt_size[1]), font, 0.8, txt_color, thickness=1)
+            cv2.putText(img, text, (x0, y0 + txt_size[1]), font, 0.4, txt_color, thickness=1)
     
         return img
 
@@ -212,6 +211,7 @@ def load_model_onnxruntime(onnxpath,
                            EP_list = ['CUDAExecutionProvider', 'CPUExecutionProvider'],
                            sess_options_enable=True ):
     
+    import onnxruntime as ort
     if sess_options_enable:
         sess_options = ort.SessionOptions()
         sess_options.execution_mode = ort.ExecutionMode.ORT_SEQUENTIAL
@@ -245,18 +245,9 @@ if __name__ == "__main__":
         sys.exit()
     
     if 'onnx' != USE_MODE:
-        from trt_main import TRTEngine
         model = TRTEngine(cfg.model_path, dtype=dtype)
         shape = model.engine.get_binding_shape(0)
     else:        
-        # import onnxruntime as ort
-        # EP_list = ['CUDAExecutionProvider', 'CPUExecutionProvider']
-        # sess_options = ort.SessionOptions()
-        # sess_options.execution_mode = ort.ExecutionMode.ORT_SEQUENTIAL
-        # sess_options.graph_optimization_level = ort.GraphOptimizationLevel.ORT_ENABLE_ALL
-        # model = ort.InferenceSession(cfg.model_path, sess_options, providers=EP_list)
-        # shape = model.get_inputs()[0].shape
-        # inpname = model.get_inputs()[0].name
         model, shape, inpname = load_model_onnxruntime(cfg.model_path, sess_options_enable=False)
     shapetuple = tuple(shape[2:])
     ylrunner = YOLOX_runner()
@@ -266,20 +257,26 @@ if __name__ == "__main__":
     impath = r'test_image4.jpg'.split('.')
     img = cv2.imread('.'.join(impath))
     for i in range(30):
+        #preprocess
         start = time.time()
         img_prep, ratio = ylrunner.preprocess(img, shapetuple)
         img_prep = img_prep.astype(dtype)[None,...]
+        
+        # inference
         start2 = time.time()
         if 'onnx' != USE_MODE:
             result_infer = model(img_prep,cfg.batch_size)
         else:
             result_infer = model.run(None, {inpname:img_prep})
+            
+        # post process
         start3 = time.time()
         result_pp = ylrunner.demo_postprocess(result_infer[0].reshape(img_prep.shape[0],-1, 85), shapetuple)
         start4 = time.time()
         result_out = ylrunner.filter_with_nms(result_pp[0], 
                                               nms_threshold=cfg.nms_threshold, 
-                                              score_threshold=cfg.score_threshold)
+                                              score_threshold=cfg.score_threshold,
+                                              ratio=ratio)
         start5 = time.time()
         # result = result.reshape(1, -1, 85)
         print('{:2d}. preproc: {:.3f}s, infer: {:.3f}s, postproc: {:.3f}s, nms-filter: {:.3f}s, total: {:.3f}s'.format(i,
